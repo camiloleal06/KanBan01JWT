@@ -12,22 +12,17 @@ pipeline {
             }
         }
         
-        stage('Test') {
+        stage('Clean') {
             steps {
-                sh 'mvn test'
+                sh 'mvn  clean'
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
+                   }
         
           stage("SonarQube analysis") {
             agent any
             steps {
               withSonarQubeEnv('sonar') {
-                sh 'mvn clean sonar:sonar'
+                sh 'mvn sonar:sonar'
               }
             }
           }
