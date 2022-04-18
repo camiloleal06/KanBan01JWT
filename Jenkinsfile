@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -B -DskipTests clean install'
             }
         }
         
@@ -17,7 +17,7 @@ pipeline {
             agent any
             steps {
               withSonarQubeEnv('sonar') {
-                sh 'mvn -B -DskipTests clean install sonar:sonar'
+                sh 'mvn sonar:sonar'
               }
             }
           }
